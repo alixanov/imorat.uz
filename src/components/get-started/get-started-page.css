@@ -1,0 +1,74 @@
+.get__started-page {
+     width: 100vw;
+     height: 100vh;
+     background-repeat: no-repeat;
+     background-size: 100% 100%;
+     /* Ensures the image stretches to cover the whole viewport */
+     background-position: center center;
+     /* Centers the background image */
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+     gap: 33px;
+     background-image: url(../../assets/desktop-bg-image.jpg);
+}
+.get__started-title  {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+     gap: 22px;
+     position: relative;
+     top: -40px;
+}
+.get__started-title > h1 {
+     color: white;
+     font-size: 40px;
+     font-family: "Arimo", sans-serif;
+}
+.get__started-title>h2 {
+     color: white;
+     font-size: 35px;
+     font-family: "Arimo", sans-serif;
+}
+.get__started-title>a{
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     background-color: white;
+     width: 220px;
+     /* Slightly increased width for a balanced look */
+     height: 50px;
+     color: #222222;
+     border: none;
+     border-radius: 12px;
+     /* More rounded corners */
+     font-size: 24px;
+     font-weight: 500;
+     /* Slightly bolder */
+     letter-spacing: 1px;
+     /* Adds spacing between letters */
+     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+     /* Subtle shadow for depth */
+     transition: all 0.3s ease;
+     /* Smooth transition for hover effects */
+     cursor: pointer;
+     font-family: "Arimo", sans-serif;
+}
+
+.get__started-title>a:hover {
+     background-color: rgba(255, 255, 255, 0.85);
+     transform: scale(1.02);
+     /* Slight scale-up effect */
+     box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+     /* Enhance shadow on hover */
+}
+
+.get__started-title>a:active {
+     background-color: rgba(255, 255, 255, 0.75);
+     transform: scale(0.98);
+     /* Slight scale-down effect */
+     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+     /* Lighter shadow when pressed */
+}
