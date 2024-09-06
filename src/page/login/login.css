@@ -1,4 +1,16 @@
-.login__container {
+/* login.css и register.css */
+.background__video {
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     z-index: -1;
+}
+
+.login__container,
+.register__container {
      width: 100%;
      height: 100vh;
      display: flex;
@@ -8,21 +20,11 @@
      overflow: hidden;
 }
 
-.background__video {
-     position: absolute;
-     top: 0;
-     left: 0;
-     width: 100%;
-     height: 100%;
-     object-fit: cover;
-     z-index: -1;
-     /* Видео будет находиться за всеми элементами */
-}
-
-.login__form {
+.login__form,
+.register__form {
      width: 390px;
      padding: 60px;
-     background-color: rgba(255, 255, 255, 0.411);
+     background-color: rgba(255, 255, 255, 0.26);
      border-radius: 16px;
      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.055);
      display: flex;
@@ -31,7 +33,8 @@
      z-index: 1;
 }
 
-.login__form p {
+.login__form p,
+.register__form p {
      font-size: 26px;
      font-weight: 500;
      color: white;
@@ -39,7 +42,8 @@
      margin-bottom: 20px;
 }
 
-.login__form input {
+.login__form input,
+.register__form input {
      width: 100%;
      height: 45px;
      padding: 0 15px;
@@ -49,12 +53,14 @@
      transition: border-color 0.3s ease;
 }
 
-.login__form input:focus {
+.login__form input:focus,
+.register__form input:focus {
      border-color: #343449;
      outline: none;
 }
 
-.login__form button {
+.login__form button,
+.register__form button {
      width: 100%;
      height: 48px;
      background-color: #343449;
@@ -66,20 +72,8 @@
      transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.login__form button:hover {
+.login__form button:hover,
+.register__form button:hover {
      background-color: #5b5b73;
      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-.page__register {
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     gap: 22px;
-}
-
-.page__register>a {
-     color: #343449;
-     font-size: 15px;
-     font-weight: 500;
 }
