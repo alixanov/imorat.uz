@@ -1,8 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import GetStartedPage from "../components/get-started/GetStartedPage";
 import { Login, Register } from "../page";
-import Home from "../components/home/Home";
+import {Home} from "../components/";
 
 const AppRouter = () => {
   const token = localStorage.getItem("token");
@@ -13,8 +12,7 @@ const AppRouter = () => {
     </Routes>
   ) : (
     <Routes>
-      <Route path="/" element={<GetStartedPage />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
     </Routes>
   );
