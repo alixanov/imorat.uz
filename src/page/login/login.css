@@ -4,11 +4,19 @@
      display: flex;
      align-items: center;
      justify-content: center;
-     background-color: #343449;
-     background-image: url('../../assets/desktop-bg-image.jpg');
-     background-size: cover;
-     background-position: center;
      position: relative;
+     overflow: hidden;
+}
+
+.background__video {
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     z-index: -1;
+     /* Видео будет находиться за всеми элементами */
 }
 
 .login__form {
@@ -20,24 +28,7 @@
      display: flex;
      flex-direction: column;
      gap: 24px;
-     transition: box-shadow 0.3s ease;
-     position: relative;
-     overflow: hidden;
-}
-
-.login__form::before {
-     content: "";
-     position: absolute;
-     width: 100%;
-     height: 4px;
-     background-color: #343449;
-     top: 0;
-     left: 0;
-     transition: transform 0.3s ease;
-}
-
-.login__form:hover::before {
-     transform: scaleX(1.1);
+     z-index: 1;
 }
 
 .login__form p {
@@ -80,19 +71,15 @@
      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-.login__form input,
-.login__form button {
-     box-shadow: none;
-     /* Убираем лишние тени */
-}
 .page__register {
      display: flex;
      align-items: center;
      justify-content: center;
      gap: 22px;
 }
-.page__register > a {
-     color:#343449;
-     font-size:15px;
+
+.page__register>a {
+     color: #343449;
+     font-size: 15px;
      font-weight: 500;
 }
