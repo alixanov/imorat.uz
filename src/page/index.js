@@ -1,3 +1,5 @@
 export { default as Login } from "../page/login/Login"
 export { default as Register } from "../page/register/Register"
-export { default as BackgroundVideo } from  "../page/background/Background-video"
+export { default as BackgroundVideo } from "../page/background/Background-video"
+export { default as Navbar } from "../page/navbar/Navbar"
+export {default as InputSearch} from "../page/inputs/Input-search"

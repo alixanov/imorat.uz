@@ -44,7 +44,7 @@ const Login = () => {
                     />
                     <div className="page__register">
                          <Link>Ruyhatdan o'tish</Link>
-                         <Link>Parol unutdingizmi?</Link>
+                         <Link>Parolni unutdingizmi?</Link>
                     </div>
                     <button type="submit">Kirish</button>
                </form>
