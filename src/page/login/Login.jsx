@@ -3,27 +3,61 @@ import "../login/login.css";
 import { Link, useNavigate } from 'react-router-dom';
 import { BackgroundVideo } from "../";
 import axios from 'axios';
+import Swal from 'sweetalert2'; // SweetAlert2 ni import qilamiz
 
 const Login = () => {
-     const [login, setLogin] = useState(''); // Бу ерда useState() ни фойдаланиш керак
+     const [login, setLogin] = useState('');
      const [password, setPassword] = useState('');
      const navigate = useNavigate();
 
-     function loginUser() {
+     const notifySuccess = (message) => {
+          Swal.fire({
+               icon: 'success',
+               title: 'Успех!',
+               text: message,
+               timer: 3000,
+               showConfirmButton: false,
+          });
+     };
+
+     const notifyError = (message) => {
+          Swal.fire({
+               icon: 'error', // Xatolik ikonkasi
+               title: 'Xato!',
+               text: message,
+               timer: 3000,
+               showConfirmButton: false,
+          });
+     };
+
+     const loginUser = async () => {
+          if (!login || !password) {
+               notifyError('Iltimos, barcha maydonlarni to\'ldiring.'); // Popup orqali ko'rsatamiz
+               return;
+          }
+
           const data = {
                login,
                password
           };
-          axios
-               .post("http://localhost:5007/login", data)
-               .then((res) => {
-                    localStorage.setItem("token", res.data.token);
-                    window.location.reload();
-               })
-               .catch((error) => {
-                    console.log(error);
+
+          try {
+               const res = await axios.post("http://localhost:5007/login", data, {
+                    headers: {
+                         'Content-Type': 'application/json',
+                    }
                });
-     }
+               localStorage.setItem("token", res.data.token);
+
+               navigate('/details');
+               window.location.reload();
+
+               notifySuccess("Siz muvaffaqiyatli tizimga kirdingiz!");
+          } catch (error) {
+               console.error("Xato:", error.response?.data || error.message);
+               notifyError('Login yoki parol noto\'g\'ri.'); // Xatolik popup tarzida ko'rsatiladi
+          }
+     };
 
      return (
           <div className="login__container">
@@ -34,7 +68,7 @@ const Login = () => {
                          type="text"
                          placeholder="Username"
                          value={login}
-                         onChange={(e) => setLogin(e.target.value)} // setLogin энди тўғри ишлайди
+                         onChange={(e) => setLogin(e.target.value)}
                     />
                     <input
                          type="password"
@@ -43,8 +77,8 @@ const Login = () => {
                          onChange={(e) => setPassword(e.target.value)}
                     />
                     <div className="page__register">
-                         <Link>Ruyhatdan o'tish</Link>
-                         <Link>Parolni unutdingizmi?</Link>
+                         <Link to={"/register"}>Ruyhatdan o'tish</Link>
+                         <Link to={"/forgot-password"}>Parolni unutdingizmi?</Link>
                     </div>
                     <button type="submit">Kirish</button>
                </form>

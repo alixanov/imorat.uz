@@ -35,7 +35,7 @@
 
 .login__form p,
 .register__form p {
-     font-size: 27px;
+     font-size: 24px;
      font-weight: 500;
      color: #343449;
      text-align: center;
@@ -85,6 +85,6 @@
 }
 .page__register > a {
      color: #343449;
-     font-size: 15px;
-     font-weight: 500;
+     font-size: 14px;
+     font-weight: 400;
 }    

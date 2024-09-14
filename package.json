@@ -15,12 +15,18 @@
     "axios": "^1.7.7",
     "cors": "^2.8.5",
     "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
+    "notistack": "^3.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.53.0",
+    "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.24.0",
     "react-scripts": "5.0.1",
+    "react-select": "^5.8.0",
     "styled-components": "^6.1.13",
+    "sweetalert2": "^11.13.3",
+    "swiper": "^11.1.12",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

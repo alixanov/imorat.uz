@@ -4,8 +4,11 @@
      display: flex;
      align-items: center;
      justify-content: space-between;
-     background-color: #14142B;
+     background-color: rgb(40, 40, 79);
      padding: 1% 4%;
+     z-index: 1000;
+     top: 0;
+     position: sticky;
 }
 .logo__project {
      display: flex;
@@ -16,7 +19,7 @@
 .logo__project > h2 {
      color: white;
      font-size: 29px;
-     font-weight: 600;
+     font-weight: 300;
 }
 .nav__right {
      display: flex;
@@ -40,8 +43,8 @@
      height: 39px;
      border-radius: 8px;
      cursor: pointer;
-     font-size: 20px;
-     font-weight: 500;
+     font-size: 22px;
+     font-weight: 400;
      border: none;
      background-color: white;
      display: flex;
@@ -57,4 +60,56 @@
 }
 .nav__advertisement:active {
      background-color: #73738b;
+}
+/* Для планшетов (768px и меньше) */
+@media (max-width: 768px) {
+     .nav {
+          padding: 1% 2%;
+     }
+
+     .logo__project>h2 {
+          font-size: 24px;
+     }
+
+     .nav__user-profile>a {
+          font-size: 18px;
+     }
+
+     .nav__advertisement {
+          width: 140px;
+          height: 35px;
+          font-size: 18px;
+     }
+}
+
+/* Для телефонов (480px и меньше) */
+@media (max-width: 480px) {
+     .nav {
+          flex-direction: column;
+          height: auto;
+          padding: 10px;
+     }
+
+     .logo__project {
+          margin-bottom: 10px;
+     }
+
+     .logo__project>h2 {
+          font-size: 20px;
+     }
+
+     .nav__right {
+          flex-direction: column;
+          gap: 10px;
+     }
+
+     .nav__user-profile>a {
+          font-size: 16px;
+     }
+
+     .nav__advertisement {
+          width: 120px;
+          height: 30px;
+          font-size: 16px;
+     }
 }

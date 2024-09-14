@@ -1,0 +1,81 @@
+.new-minimal-swiper {
+     width: 100%;
+     height: 450px;
+     position: relative;
+}
+
+.new-image-container {
+     padding: 2% 4%;
+     height: 100%;
+     position: relative;
+}
+
+.new-slider-image {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     border-radius: 15px;
+}
+
+/* Кастомные кнопки навигации */
+.custom-prev,
+.custom-next {
+     position: absolute;
+     top: 50%;
+     transform: translateY(-50%);
+     z-index: 10;
+     color: white;
+     font-size: 6.5rem;
+     font-weight: 200;
+     /* background: rgba(0, 0, 0, 0.5); */
+     padding: 10px;
+     border-radius: 50%;
+     cursor: pointer;
+     transition: transform 0.3s ease;
+}
+
+/* .custom-prev:hover,
+.custom-next:hover {
+     transform: scale(1.1);
+} */
+
+.custom-prev {
+     left: 2%;
+}
+
+.custom-next {
+     right: 2%;
+}
+
+/* Пагинация */
+.swiper-pagination-bullet {
+     background-color: #fff;
+     opacity: 0.7;
+}
+
+.swiper-pagination-bullet-active {
+     background-color: #000;
+     opacity: 1;
+}
+
+/* Адаптация для телефонов */
+@media (max-width: 640px) {
+     .new-minimal-swiper {
+          height: 220px;
+     }
+
+     .custom-prev,
+     .custom-next {
+          font-size: 5rem;
+          padding: 5px;
+          font-weight: 200;
+     }
+
+     .new-slider-image {
+          border-radius: 15px;
+     }
+
+     .new-image-container {
+          padding: 5%;
+     }
+}
