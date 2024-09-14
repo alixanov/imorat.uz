@@ -66,13 +66,13 @@ const Login = () => {
                     <p>Shaxsiy kabinetga o'tish</p>
                     <input
                          type="text"
-                         placeholder="Username"
+                         placeholder="Username:"
                          value={login}
                          onChange={(e) => setLogin(e.target.value)}
                     />
                     <input
                          type="password"
-                         placeholder="Parol"
+                         placeholder="Parol:"
                          value={password}
                          onChange={(e) => setPassword(e.target.value)}
                     />
