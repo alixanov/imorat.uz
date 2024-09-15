@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { Login, Register } from "../page";
 import { Adding, Home, InfoAd, Admin } from "../components/";
+import Userprofile from "../components/user-profile/User-profile";
 
 const AppRouter = () => {
   const token = localStorage.getItem("token");
@@ -12,7 +13,8 @@ const AppRouter = () => {
       <Route path="/details/:id" element={<InfoAd />} />
       <Route path="/adding" element={<Adding />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/iadmin" element={<Admin/>} /> 
+      <Route path="/iadmin" element={<Admin />} /> 
+      <Route path="user-profile" element={<Userprofile/>}/>
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   ) : (
