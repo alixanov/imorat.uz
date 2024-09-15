@@ -17,7 +17,8 @@ const Navbar = () => {
                          E'lon qo'ying
                     </Link>
                     <div className="nav__user-profile">
-                         <FormatAlignRightIcon sx={{ color: "white", fontSize: 33, cursor: "pointer" }} />
+                         <Link to={"/catalog"}>                         <FormatAlignRightIcon sx={{ color: "white", fontSize: 33, cursor: "pointer" }} />
+</Link>
                          <Link to={"/user-profile"}>< PersonIcon sx={{ color: "white", fontSize: 33, cursor: "pointer" }} /></Link>
                          {/* <Link>Kabinetingiz</Link> */}
                          

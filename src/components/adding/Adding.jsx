@@ -49,12 +49,12 @@ const Adding = () => {
 
   // Kategoriyani to'g'ri yozuvga o'zgartirish uchun xarita
   const categoryMapping = {
-    kvartira__sotish: "Kvartira sotish",
-    kvartira__ijaraga__berish: "Kvartira ijaraga berish",
-    ofis__sotish: "Ofis sotish",
-    ofis__ijaraga__berish: "Ofis ijaraga berish",
-    hovli__sotish: "Hovli sotish",
-    hovli__ijaraga__berish: "Hovli ijaraga berish",
+    kvartira__sotish: "Kvartira sotiladi",
+    kvartira__ijaraga__berish: "Kvartira ijaraga beriladi",
+    ofis__sotish: "Ofis sotiladi",
+    ofis__ijaraga__berish: "Ofis ijaraga beriladi",
+    hovli__sotish: "Hovli sotiladi",
+    hovli__ijaraga__berish: "Hovli ijaraga beriladi",
   };
 
   // Formani yuborish funksiyasi
@@ -100,11 +100,11 @@ const Adding = () => {
           {/* Kategoriya tanlash */}
           <label>Kategoriya tanlang</label>
           <select {...register('category', { required: true })}>
-            <option value="kvartira__sotish">Kvartira sotish</option>
-            <option value="kvartira__ijaraga__berish">Kvartira ijaraga berish</option>
-            <option value="ofis__sotish">Ofis sotish</option>
-            <option value="ofis__ijaraga__berish">Ofis ijaraga berish</option>
-            <option value="hovli__sotish">Hovli sotish</option>
+            <option value="kvartira__sotish">Kvartira sotiladi</option>
+            <option value="kvartira__ijaraga__berish">Kvartira ijaraga beriladi</option>
+            <option value="ofis__sotish">Ofis sotiladi</option>
+            <option value="ofis__ijaraga__berish">Ofis ijaraga beriladi</option>
+            <option value="hovli__sotish">Hovli sotiladi</option>
             <option value="hovli__ijaraga__berish">Hovli ijaraga berish</option>
           </select>
           {errors.category && <span className="error">Kategoriya majburiy!</span>}

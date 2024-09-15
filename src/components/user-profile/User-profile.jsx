@@ -1,53 +1,77 @@
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form';
-import "./user-profile.css"
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './user-profile.css'; // Импортируйте ваш CSS файл
 
-const Userprofile = () => {
-  const { register, handleSubmit } = useForm(); // react-hook-form да формани бошқариш учун ишлатилади
-  const [isAddOpen, setIsAddOpen] = useState(false) // Модални очиқлигини сақлаш учун state
-  const handleAddClick = () => {
-    setIsAddOpen(true) // Кнопка босилганда модални очиш
-  }
+const UserProfile = () => {
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true); // Добавляем состояние загрузки
+  const token = localStorage.getItem('token');
 
-  const handleCloseAdd = () => {
-    setIsAddOpen(false) // Модални ёпиш функцияси
-  }
+  // Получаем данные пользователя
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5007/api/user', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setUserData(response.data);
+      } catch (error) {
+        console.error('Ошибка при получении данных пользователя:', error);
+      } finally {
+        setLoading(false); // Завершаем загрузку данных
+      }
+    };
+
+    fetchUserData();
+  }, [token]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // Удаляем токен из локального хранилища
+    window.location.href = '/'; // Перенаправляем на главную страницу
+  };
 
   return (
-    <div className='user__container'>
-      <div className="user__navbar">
-        <div className="user__img">
-          {/* Бу ерга фойдаланувчининг суратини қўшиш мумкин */}
-        </div>
-
-        <div className="user__info">
-          <p>User name:</p> {/* Фойдаланувчи номи кўрсатилади */}
-          <p>Ism:</p>
-          <p>Familya:</p>
-          <span>Telefon raqam:</span>
-          <button onClick={handleAddClick} >Malumotlarni yangilash</button> {/* Модални очувчи кнопка */}
-
-          {/* Модаль окно фақат очиқ бўлган вақтда кўрсатилсин */}
-          {isAddOpen && (
-            <div className='modal'>
-              <div className="modal-content">
-                <span className='close' onClick={handleCloseAdd}>
-                  &times; {/* Close иконкаси, босилганда модаль ёпилади */}
-                </span>
-                <form onSubmit={handleSubmit((data) => console.log(data))} className='modal__form'>
-                  <input type="text" name="ism" placeholder='Ismingiz' {...register("nomi", { required: true })} /> {/* "nomi" майдони */}
-                  <input type="text" name="familya" placeholder='Familyangiz' {...register("narxi", { required: true })} /> {/* "narxi" майдони */}
-                  <input type="text" name="telefonraqam" placeholder='Telefon raqamingiz' {...register("soni", { required: true })} /> {/* "soni" майдони */}
-                  <button type="submit">Отправить данные</button> {/* Жўнатиш кнопкаси */}
-                </form>
-              </div>
+    <div className="user__container">
+      {loading ? (
+        <div className="loading">Загрузка данных пользователя...</div>
+      ) : userData ? (
+        <>
+          <div className="user__navbar">
+            <div className="user__img"></div>
+            <div className="user__info">
+              <p>Привет, {userData.login}!</p>
+              <button onClick={handleLogout}>Выйти</button>
             </div>
-          )}
-        </div>
-      </div>
+          </div>
+          <div className="ads-section">
+            <h2 className="section-title">Сохраненные объявления</h2>
+            <div className="ads-grid">
+              {userData.savedAds && userData.savedAds.length > 0 ? (
+                userData.savedAds.map((ad) => (
+                  <div className="card" key={ad.id}>
+                    <img src={`http://localhost:5007${ad.imageUrl}`} alt={ad.title} />
+                    <div className="card-content">
+                      <h3 className="card-title">{ad.title}</h3>
+                      <p className="card-description">{ad.description}</p>
+                      <button className="card-button" onClick={() => window.location.href = `/details/${ad.id}`}>
+                        Подробнее
+                      </button>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p>У вас нет сохраненных объявлений.</p>
+              )}
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="error">Не удалось загрузить данные пользователя.</div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Userprofile
-//
+export default UserProfile;
