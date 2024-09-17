@@ -4,13 +4,16 @@
      justify-content: center;
      /* align-items: center; */
      flex-direction: column;
-     padding: 0 4%;
+     padding: 2% 4%;
      gap: 22px;
 }
 .catalog__card {
      display: flex;
      align-items: start;
      flex-direction: column;
+          background-color: rgba(255, 255, 255, 0.523);
+          border-radius: 8px;
+          padding: 2%;
 }
 .catalog__list {
 display: flex;

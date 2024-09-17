@@ -2,90 +2,82 @@ import React, { useState, useRef } from 'react';
 import './adding.css';
 import { useForm } from 'react-hook-form';
 import axios from "axios";
-import Swal from 'sweetalert2'; // SweetAlert2 ni import qilamiz
-import { useNavigate } from 'react-router-dom'; // useNavigate ni import qilamiz
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const Adding = () => {
-  const [images, setImages] = useState([]); // Tasvirlar uchun state
-  const fileInputRef = useRef(null); // Fayl inputni boshqarish uchun useRef
-  const { register, handleSubmit, formState: { errors } } = useForm(); // React Hook Form dan foydalanamiz
-  const navigate = useNavigate(); // useNavigate hookidan foydalanamiz
+  const [images, setImages] = useState([]);
+  const fileInputRef = useRef(null);
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
 
-  // Tasvirlarni yuklash funksiyasi
   const handleImageUpload = (event) => {
-    const files = Array.from(event.target.files); // Yuklangan fayllarni arrayga o'zgartiramiz
-    setImages([...images, ...files].slice(0, 8)); // Tasvirlar ro'yxatiga qo'shamiz, 8 tadan oshmasligi kerak
+    const files = Array.from(event.target.files);
+    setImages([...images, ...files].slice(0, 8)); // Максимум 8 изображений
   };
 
-  // Fayl tanlash inputini ishga tushirish
   const triggerFileInput = () => {
-    fileInputRef.current.click(); // Ref orqali inputni bosish funksiyasi
+    fileInputRef.current.click();
   };
 
-  // Muvaffaqiyatli natija uchun xabar
   const notifySuccess = (message, homeId) => {
     Swal.fire({
-      icon: 'success', // Muvaffaqiyat ikonkasi
+      icon: 'success',
       title: 'Успех!',
       text: message,
       timer: 3000,
-      showConfirmButton: false, // OK tugmasi bo'lmaydi
+      showConfirmButton: false,
     }).then(() => {
-      // Muvaffaqiyatli qo'shilgandan so'ng detallar sahifasiga yo'naltirish
       navigate(`/details/${homeId}`);
     });
   };
 
-  // Xatolik yuzaga kelsa xabar
   const notifyError = (message) => {
     Swal.fire({
-      icon: 'error', // Xato ikonkasi
+      icon: 'error',
       title: 'Ошибка!',
       text: message,
       timer: 3000,
-      showConfirmButton: false, // OK tugmasi bo'lmaydi
+      showConfirmButton: false,
     });
   };
 
-  // Kategoriyani to'g'ri yozuvga o'zgartirish uchun xarita
   const categoryMapping = {
     kvartira__sotish: "Kvartira sotiladi",
     kvartira__ijaraga__berish: "Kvartira ijaraga beriladi",
     ofis__sotish: "Ofis sotiladi",
     ofis__ijaraga__berish: "Ofis ijaraga beriladi",
     hovli__sotish: "Hovli sotiladi",
-    hovli__ijaraga__berish: "Hovli ijaraga beriladi",
+    hovli__ijaraga__berish: "Hovli ijaraga berish",
   };
 
-  // Formani yuborish funksiyasi
   const onSubmit = async (formData) => {
-    const data = new FormData(); // FormData obyekti bilan ma'lumot yuboramiz
+    const data = new FormData();
 
-    // Kategoriyani xaritadan o'zgarishsiz holga keltiramiz
     const categoryText = categoryMapping[formData.category];
 
     data.append('category', categoryText);
     data.append('location', formData.location);
     data.append('details', formData.details);
-    data.append("mobilecontact", formData.mobilecontact)
+    data.append("mobilecontact", formData.mobilecontact);
     data.append('contacts', formData.contacts);
-    data.append('price', formData.price); // Narxni qo'shamiz
+    data.append('price', formData.price);
 
-    // Har bir tasvirni ma'lumotlar bilan birga qo'shamiz
     images.forEach((image) => {
       data.append('images', image);
     });
 
-    // Ma'lumotlarni serverga yuborish
     try {
       const response = await axios.post('http://localhost:5007/add-home', data, {
         headers: {
-          'Content-Type': 'multipart/form-data', // Multipart form ma'lumotlarini yuborish
+          'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${token}`, // Добавляем токен авторизации
         },
       });
-      notifySuccess('Объявление успешно добавлено!', response.data.home._id); // Muvaffaqiyatli xabar va id
+      notifySuccess('Объявление успешно добавлено!', response.data.home._id);
     } catch (error) {
-      notifyError('Ошибка при отправке данных.'); // Xato xabar
+      notifyError('Ошибка при отправке данных.');
       console.error('Ошибка при отправке данных:', error);
     }
   };
@@ -93,12 +85,12 @@ const Adding = () => {
   return (
     <div className='adding__container'>
       <div className="adding__title">
-        <p>Elon joylash</p> {/* Formani sarlavhasi */}
+        <p>Elon joylash</p>
       </div>
       <div className="adding__card">
         <form className='adding__form-card' onSubmit={handleSubmit(onSubmit)}>
-          {/* Kategoriya tanlash */}
-          <label>Kategoriya tanlang</label>
+          {/* Категория */}
+          <label>Kategoriya</label>
           <select {...register('category', { required: true })}>
             <option value="kvartira__sotish">Kvartira sotiladi</option>
             <option value="kvartira__ijaraga__berish">Kvartira ijaraga beriladi</option>
@@ -107,9 +99,9 @@ const Adding = () => {
             <option value="hovli__sotish">Hovli sotiladi</option>
             <option value="hovli__ijaraga__berish">Hovli ijaraga berish</option>
           </select>
-          {errors.category && <span className="error">Kategoriya majburiy!</span>}
+          {errors.category && <span className="error">Категория обязательна!</span>}
 
-          {/* Manzil tanlash */}
+          {/* Местоположение */}
           <label>Manzil</label>
           <select {...register('location', { required: true })}>
             <option value="namangan">Namangan</option>
@@ -123,73 +115,67 @@ const Adding = () => {
             <option value="qashqadaryo">Qashqadaryo</option>
             <option value="surhandaryo">Surhandaryo</option>
           </select>
-          {errors.location && <span className="error">Manzil majburiy!</span>}
+          {errors.location && <span className="error">Местоположение обязательно!</span>}
 
-          {/* Batafsil ma'lumot */}
-          <label>Batafsil ma'lumot</label>
+          {/* Подробности */}
+          <label>Batafsil malumot</label>
           <input
             type="text"
-            placeholder="Misol uchun: 3 xonalik 4 etaj euro remont minimalisim"
+            placeholder="Misol uchun:3 xonalik 4 etaj euro remont minimalism asosida tayyorlangan"
             {...register('details', { required: true })}
           />
-          {errors.details && <span className="error">Batafsil ma'lumot majburiy!</span>}
+          {errors.details && <span className="error">Подробности обязательны!</span>}
 
-          {/* Narxni kiritish */}
-          <label>Narxi $</label>
+          {/* Контактные данные */}
+          <label>Ism va familya</label>
           <input
             type="text"
-            placeholder="Misol uchun: 500"
-            {...register('price', { required: true })}
-          />
-          {errors.price && <span className="error">Narxni kiritish majburiy!</span>}
-
-          {/* Suratlarni joylash */}
-          <label>Suratlarni joylash</label>
-          <input
-            type="file"
-            ref={fileInputRef} // Fayl inputini ref orqali boshqaramiz
-            multiple
-            onChange={handleImageUpload} // Tasvirlarni yuklash
-            accept="image/*"
-            style={{ display: 'none' }} // Fayl inputini ko'rsatmaymiz
-          />
-
-          <div className="image-grid">
-            {/* Tasvirlar uchun grid yaratamiz */}
-            {[...Array(6)].map((_, index) => (
-              <div
-                key={index}
-                className={`image-grid__item ${index === 0 ? 'main-image' : ''}`} // Birinchi tasvir asosiy bo'ladi
-                onClick={triggerFileInput} // Tasvirni bosganda fayl yuklash ishlaydi
-              >
-                {images[index] ? (
-                  <img src={URL.createObjectURL(images[index])} alt={`preview-${index}`} /> // Tasvirni preview qilish
-                ) : (
-                  <div className="placeholder">Rasm yuklash</div> // Tasvir joylanmagan bo'lsa
-                )}
-              </div>
-            ))}
-          </div>
-          <label htmlFor="">Telefon raqamingiz</label>
-          <input type="number" name="" id=""
-            placeholder='Misol uchun: 940751313'
-            {...register('mobilecontact', { required: true })}
-          />
-          {errors.mobilecontact && <span className="error">Telefon raqam kiritish majburiy!</span>}
-
-
-          {/* Kontaktlarni kiritish */}
-          <label>Bog'lanish uchun kontaktlar</label>
-          <textarea
-            placeholder="Pochta, telegram user"
+            placeholder="Misol uchun:Shukurullo Alixonov"
             {...register('contacts', { required: true })}
           />
-          {errors.contacts && <span className="error">Kontaktlar majburiy!</span>}
+          {errors.contacts && <span className="error">Контактные данные обязательны!</span>}
 
-          {/* Formani yuborish tugmasi */}
-          <div className="form__send-btn">
-            <button type="submit">Joylash</button>
+          {/* Мобильный телефон */}
+          <label>Telefon raqamingiz</label>
+          <input
+            type="number"
+            placeholder="Misol uchun: 998940751313"
+            {...register('mobilecontact', { required: true })}
+          />
+          {errors.mobilecontact && <span className="error">Мобильный номер обязателен!</span>}
+
+          {/* Цена */}
+          <label>Narxi</label>
+          <input
+            type="text"
+            placeholder="Misol uchun: 500$"
+            {...register('price', { required: true })}
+          />
+          {errors.price && <span className="error">Цена обязательна!</span>}
+
+          {/* Загрузка изображений */}
+          <label>Suratlarni yuklash</label>
+          <div className="image-upload-wrapper">
+            <button type="button" onClick={triggerFileInput}>
+Suratlarni yuklash            </button>
+            <input
+              type="file"
+              multiple
+              accept="image/jpeg, image/png, image/jpg, image/jfif"
+              style={{ display: 'none' }}
+              ref={fileInputRef}
+              onChange={handleImageUpload}
+            />
           </div>
+          {images.length > 0 && (
+            <div className="image-preview">
+              {images.map((image, index) => (
+                <img key={index} src={URL.createObjectURL(image)} alt={`Preview ${index}`} />
+              ))}
+            </div>
+          )}
+
+          <button type="submit">Elonni joylash</button>
         </form>
       </div>
     </div>

@@ -4,47 +4,33 @@
      align-items: center;
      justify-content: center;
      flex-direction: column;
+     padding: 2% 4%;
 }
 
 .user__navbar {
      width: 100%;
-     height: 330px;
+     height: 70px;
      display: flex;
      align-items: center;
-     justify-content: center;
+     justify-content: space-between;
      background-color: white;
      padding: 2%;
-     gap: 222px;
+     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+     background-color: rgba(255, 255, 255, 0.523);
+          border-radius: 8px;
 }
 
-.user__img {
-     width: 300px;
-     height: 300px;
-     background-color: #3d3d69;
-     border-radius: 50%;
-}
 
-.user__info {
-     width: 400px;
-     height: 300px;
-     display: flex;
-     align-items: start;
-     justify-content: start;
-     text-align: start;
-     flex-direction: column;
-     gap: 11px;
-}
-
-.user__info>p,
+.user__navbar >p,
 span {
      font-size: 24px;
      color: #222222;
      font-weight: 300;
 }
 
-.user__info>button {
-     width: 281px;
-     height: 45px;
+.user__navbar>button {
+     width: 151px;
+     height: 40px;
      background-color: #3d3d69;
      color: white;
      font-size: 22px;
@@ -61,28 +47,31 @@ span {
 }
 
 .section-title {
-     font-size: 1.25rem;
-     color: #666;
+     font-size: 1.95rem;
+     color: white;
      margin-top: 20px;
+     margin-bottom: 20px;
+     font-weight: 200;
 }
 
 .ads-grid {
      display: flex;
      flex-wrap: wrap;
-     gap: 20px;
+     align-items: center;
+     justify-content: start;
+     gap: 30px;
 }
 
 .card {
-     background: #fff;
-     border-radius: 8px;
+     width: 350px;
+     background-color: rgba(255, 255, 255, 0.523);     border-radius: 8px;
      overflow: hidden;
      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-     width: 100%;
 }
 
 .card img {
      width: 100%;
-     height: 140px;
+     height: 200px;
      object-fit: cover;
 }
 
@@ -93,11 +82,14 @@ span {
 .card-title {
      font-size: 1.25rem;
      margin: 0;
+     color: white;
+     font-weight: 300;
 }
 
 .card-description {
      font-size: 0.875rem;
-     color: #666;
+     color: white;
+          font-weight: 300;
 }
 
 .card-button {
@@ -109,6 +101,7 @@ span {
      cursor: pointer;
      margin-top: 10px;
      padding: 10px;
+          font-weight: 300;
 }
 
 .card-button:hover {
@@ -118,4 +111,20 @@ span {
 .card-button:active {
      background-color: #1a1a3d;
      transform: scale(0.98);
+}
+@media(max-width:480px) {
+
+     .user__navbar {
+          border-radius: 8px;
+          background-color: rgba(255, 255, 255, 0.523);
+     }
+          .user__navbar>button {
+               width: 50px;
+               height: 50px; 
+               font-size: 13px;
+               font-weight: 100;
+               border-radius: 50%;
+
+               }
+  
 }

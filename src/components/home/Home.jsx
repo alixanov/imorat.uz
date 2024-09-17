@@ -6,11 +6,11 @@ import {Ad} from '../'
 const Home= () => {
   return (
     <div className='home__container'>
-      <Navbar />
-      <hr style={{backgroundColor:"white",width:"100%"}} />
+      {/* <Navbar /> */}
       <InputSearch />
       <MinimalSlider />
       <Ad />
+      
   
     </div>
   )
