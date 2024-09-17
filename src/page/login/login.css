@@ -18,6 +18,7 @@
      justify-content: center;
      position: relative;
      overflow: hidden;
+     padding: 2%;
 }
 
 .login__form,
@@ -84,7 +85,7 @@
      gap: 22px;
 }
 .page__register > a {
-     color: #343449;
-     font-size: 14px;
+     color: white;
+     font-size: 11px;
      font-weight: 400;
 }    

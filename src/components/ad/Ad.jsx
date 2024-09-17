@@ -31,7 +31,7 @@ const Ad = () => {
   return (
     <div className="ad__wrapper">
       <div className="ad__title">
-        <p>{category ? `Эълонлар: ${category.replace(/_/g, ' ')}` : 'Ommabop эълонлар'}</p>
+        <p>{category ? `Elonlar: ${category.replace(/_/g, ' ')}` : 'Ommabop elonlar'}</p>
       </div>
       <div className='ad__container'>
         {isLoading ? (
